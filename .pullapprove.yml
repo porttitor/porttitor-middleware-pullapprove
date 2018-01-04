@@ -1,3 +1,4 @@
+# You *must* specify "version: 2"
 version: 2
 
 requirements:
@@ -15,3 +16,44 @@ group_defaults:
     approve_regex: '^:\+1:'
   reset_on_push:
     enabled: true
+
+# Groups of reviewers and their respective settings
+groups:
+  example-reviewers:
+    required: 1
+
+    users:
+      - sergiohermes
+
+    conditions:
+      branches:
+        - master  # this group only reviews when PR is merging into master
+      files:
+        include:
+          - '*.md'
+        exclude:
+          - 'README.md'
+      labels:
+        - bug
+
+    approve_by_comment:
+      enabled: true
+      approve_regex: '^LGTM'  # overrides the default '^:\+1:'
+
+    author_approval:
+      required: true
+
+    reset_on_reopened:
+      enabled: true
+
+    reject_value: -3
+
+  security:
+    required: -1  # require approval from everyone
+    reset_on_push:
+      enabled: true
+    reset_on_reopened:
+      enabled: true
+    author_approval:
+      ignored: true
+    reject_value: -100  # any rejection means a failure
