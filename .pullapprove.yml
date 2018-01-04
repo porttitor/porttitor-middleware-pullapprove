@@ -1,0 +1,19 @@
+version: 2
+extends: default
+reviewers:
+    -
+        name: contributors
+        required: 1
+        teams:
+            - porttitor-http-middleware-contributors
+groups:
+  code-review:
+    approve_by_comment:
+      approve_regex: ^Approved
+      enabled: true
+      reject_regex: ^Rejected
+    required: 1
+    reset_on_push:
+      enabled: false
+    users:
+    - sergiohermes
